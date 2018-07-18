@@ -1,24 +1,25 @@
 /* A component that integrates the CodeMirror editor. */
 component CodeMirror {
   /* The JavaScript files of Codemirror to load, either locally or from a CDN. */
-  property javaScripts : Array(String) = [
-    "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0" \
-    "/codemirror.min.js"
+  property javascripts : Array(String) = [
+    "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0/codemirror.min.js"
   ]
 
   /* The CSS files of Codemirror to load, either locally or from a CDN. */
   property styles : Array(String) = [
-    "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0" \
-    "/codemirror.min.css"
+    "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0/codemirror.min.css"
   ]
-
-  /* The content to display until the editor is loaded. */
-  property loadingContent : Html = Html.empty()
 
   /* Handler for the change event. */
   property onChange : Function(String, Void) = (\value : String => void)
 
-  /* The value of the editor. */
+  /* The content to display until the editor is loaded. */
+  property loadingContent : Html = Html.empty()
+
+  /* Whether or not show line numbers. */
+  property lineNumbers : Bool = true
+
+  /* When provided this value will be in the editor.s */
   property value : String = ""
 
   /* The theme of the editor. */
@@ -27,25 +28,34 @@ component CodeMirror {
   /* The mode of the editor. */
   property mode : String = ""
 
-  /* Whether or not show line numbers. */
-  property lineNumbers : Bool = true
+  /* Loads all assets when the components mounts. */
+  fun componentDidMount : Void {
+    do {
+      AssetLoader.loadAll(AssetLoader.loadScript, javascripts)
+      AssetLoader.loadAll(AssetLoader.loadStyle, styles)
+      initializeEditor()
+    }
+  }
+
+  /* Saves the reference to the textarea. */
+  fun saveReference (element : Dom.Element) : Void {
+    `
+    (() => {
+      if (this.element) { return }
+      this.element = element
+    })()
+    `
+  }
 
   /* Initializes the editor for the given dom element. */
-  fun initializeEditor (element : Dom.Element) : Void {
+  fun initializeEditor () : Void {
     do {
-      javaScripts
-      |> Array.map(AssetLoader.loadScript)
-      |> AssetLoader.loadAll()
-
-      styles
-      |> Array.map(AssetLoader.loadStyle)
-      |> AssetLoader.loadAll()
-
       `
       (() => {
+        if (!this.element) { return }
         if (this.editor) { return }
 
-        this.editor = CodeMirror.fromTextArea(element, {
+        this.editor = CodeMirror.fromTextArea(this.element, {
           lineNumbers: this.lineNumbers,
           theme: this.theme,
           mode: this.mode,
@@ -95,42 +105,12 @@ component CodeMirror {
   /* Renders the component. */
   fun render : Array(Html) {
     [
-      <textarea::editor ref={initializeEditor}/>,
+      <textarea::editor ref={saveReference}/>,
       if (`this.editor`) {
         Html.empty()
       } else {
         loadingContent
       }
     ]
-  }
-}
-
-record Main.State {
-  value : String
-}
-component Main {
-  state : Main.State {
-    value = "function(){ \n  <div>{ this.text }</div>\n}"
-  }
-
-  fun onChange (value : String) : Void {
-    next { state | value = value }
-  }
-
-  fun render : Html {
-    <CodeMirror
-      javaScripts=[
-        "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0/codemirror.min.js",
-        "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0/mode/jsx/jsx.min.js"
-      ]
-      styles=[
-        "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0/codemirror.min.css",
-        "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0/theme/dracula.min.css",
-      ]
-      onChange={onChange}
-      value={state.value}
-      theme="dracula"
-      mode="jsx"
-      />
   }
 }

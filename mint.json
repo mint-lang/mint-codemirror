@@ -3,6 +3,9 @@
   "source-directories": [
     "source"
   ],
+  "external-javascripts": [
+    "assets/asset-loader.js"
+  ],
   "dependencies": {
     "mint-core": {
       "repository": "https://github.com/mint-lang/mint-core",
