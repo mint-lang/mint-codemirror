@@ -11,7 +11,7 @@ component CodeMirror {
   ]
 
   /* Handler for the change event. */
-  property onChange : Function(String, Void) = (\value : String => void)
+  property onChange : Function(String, Void) = ((value : String) : Void => { void })
 
   /* The content to display until the editor is loaded. */
   property loadingContent : Html = Html.empty()
