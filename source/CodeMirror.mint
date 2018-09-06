@@ -29,8 +29,8 @@ component CodeMirror {
   property mode : String = ""
 
   /* Loads all assets when the components mounts. */
-  fun componentDidMount : Void {
-    do {
+  fun componentDidMount : Promise(Never, Void) {
+    sequence {
       AssetLoader.loadAll(AssetLoader.loadScript, javascripts)
       AssetLoader.loadAll(AssetLoader.loadStyle, styles)
       initializeEditor()
@@ -49,26 +49,24 @@ component CodeMirror {
 
   /* Initializes the editor for the given dom element. */
   fun initializeEditor () : Void {
-    do {
-      `
-      (() => {
-        if (!this.element) { return }
-        if (this.editor) { return }
+    `
+    (() => {
+      if (!this.element) { return }
+      if (this.editor) { return }
 
-        this.editor = CodeMirror.fromTextArea(this.element, {
-          lineNumbers: this.lineNumbers,
-          theme: this.theme,
-          mode: this.mode,
-        })
+      this.editor = CodeMirror.fromTextArea(this.element, {
+        lineNumbers: this.lineNumbers,
+        theme: this.theme,
+        mode: this.mode,
+      })
 
-        this.editor.on('change', (value) => {
-          this.onChange(this.editor.getValue())
-        })
+      this.editor.on('change', (value) => {
+        this.onChange(this.editor.getValue())
+      })
 
-        this.forceUpdate()
-      })()
-      `
-    }
+      this.forceUpdate()
+    })()
+    `
   }
 
   /* After an update, update the underlying editor instance. */
