@@ -2,19 +2,21 @@
 component CodeMirror {
   /* The JavaScript files of Codemirror to load, either locally or from a CDN. */
   property javascripts : Array(String) = [
-    "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0/codemirror.min.js"
+    "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0" \
+    "/codemirror.min.js"
   ]
 
   /* The CSS files of Codemirror to load, either locally or from a CDN. */
   property styles : Array(String) = [
-    "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0/codemirror.min.css"
+    "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0" \
+    "/codemirror.min.css"
   ]
 
   /* Handler for the change event. */
   property onChange : Function(String, Void) = ((value : String) : Void => { void })
 
   /* The content to display until the editor is loaded. */
-  property loadingContent : Html = Html.empty()
+  property loadingContent : Html = <></>
 
   /* Whether or not show line numbers. */
   property lineNumbers : Bool = true
@@ -48,7 +50,7 @@ component CodeMirror {
   }
 
   /* Initializes the editor for the given dom element. */
-  fun initializeEditor () : Void {
+  fun initializeEditor : Void {
     `
     (() => {
       if (!this.element) { return }
@@ -105,7 +107,7 @@ component CodeMirror {
     [
       <textarea::editor ref={saveReference}/>,
       if (`this.editor`) {
-        Html.empty()
+        <></>
       } else {
         loadingContent
       }
