@@ -11,7 +11,10 @@ module AssetLoader {
   }
 
   /* Waits for all promises to load. */
-  fun loadAll(method : Function(String, Promise(Never, Void)), urls : Array(String)) : Promise(Never, Void) {
+  fun loadAll (
+    method : Function(String, Promise(Never, Void)),
+    urls : Array(String)
+  ) : Promise(Never, Void) {
     `Assets.loadAll(method, urls)`
   }
 }

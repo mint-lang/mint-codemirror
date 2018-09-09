@@ -5,11 +5,5 @@
   ],
   "external-javascripts": [
     "assets/asset-loader.js"
-  ],
-  "dependencies": {
-    "mint-core": {
-      "repository": "https://github.com/mint-lang/mint-core",
-      "constraint": "0.2.0 <= v < 1.0.0"
-    }
-  }
+  ]
 }

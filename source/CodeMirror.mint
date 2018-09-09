@@ -2,19 +2,21 @@
 component CodeMirror {
   /* The JavaScript files of Codemirror to load, either locally or from a CDN. */
   property javascripts : Array(String) = [
-    "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0/codemirror.min.js"
+    "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0" \
+    "/codemirror.min.js"
   ]
 
   /* The CSS files of Codemirror to load, either locally or from a CDN. */
   property styles : Array(String) = [
-    "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0/codemirror.min.css"
+    "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0" \
+    "/codemirror.min.css"
   ]
 
   /* Handler for the change event. */
-  property onChange : Function(String, Void) = ((value : String) : Void => { void })
+  property onChange : Function(String, a) = ((value : String) : Void => { void })
 
   /* The content to display until the editor is loaded. */
-  property loadingContent : Html = Html.empty()
+  property loadingContent : Html = <></>
 
   /* Whether or not show line numbers. */
   property lineNumbers : Bool = true
@@ -29,8 +31,8 @@ component CodeMirror {
   property mode : String = ""
 
   /* Loads all assets when the components mounts. */
-  fun componentDidMount : Void {
-    do {
+  fun componentDidMount : Promise(Never, Void) {
+    sequence {
       AssetLoader.loadAll(AssetLoader.loadScript, javascripts)
       AssetLoader.loadAll(AssetLoader.loadStyle, styles)
       initializeEditor()
@@ -48,27 +50,25 @@ component CodeMirror {
   }
 
   /* Initializes the editor for the given dom element. */
-  fun initializeEditor () : Void {
-    do {
-      `
-      (() => {
-        if (!this.element) { return }
-        if (this.editor) { return }
+  fun initializeEditor : Void {
+    `
+    (() => {
+      if (!this.element) { return }
+      if (this.editor) { return }
 
-        this.editor = CodeMirror.fromTextArea(this.element, {
-          lineNumbers: this.lineNumbers,
-          theme: this.theme,
-          mode: this.mode,
-        })
+      this.editor = CodeMirror.fromTextArea(this.element, {
+        lineNumbers: this.lineNumbers,
+        theme: this.theme,
+        mode: this.mode,
+      })
 
-        this.editor.on('change', (value) => {
-          this.onChange(this.editor.getValue())
-        })
+      this.editor.on('change', (value) => {
+        this.onChange(this.editor.getValue())
+      })
 
-        this.forceUpdate()
-      })()
-      `
-    }
+      this.forceUpdate()
+    })()
+    `
   }
 
   /* After an update, update the underlying editor instance. */
@@ -107,7 +107,7 @@ component CodeMirror {
     [
       <textarea::editor ref={saveReference}/>,
       if (`this.editor`) {
-        Html.empty()
+        <></>
       } else {
         loadingContent
       }
