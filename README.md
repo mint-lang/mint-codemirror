@@ -8,7 +8,7 @@ To use the component just add this to the `dependencies` field of the projects
 ```
 "mint-codemirror": {
   "repository": "https://github.com/mint-lang/mint-codemirror",
-  "constraint": "1.0.0 <= v < 2.0.0"
+  "constraint": "3.0.0 <= v < 4.0.0"
 }
 ```
 
@@ -17,8 +17,8 @@ To get the basic component without any modes and the default theme, just add the
 
 ```
 component Main {
-  fun onChange (value : String) : Void {
-    do {
+  fun onChange (value : String) : Promise(Never, Void) {
+    sequence {
       Debug.log(value)
     }
   }
@@ -69,7 +69,7 @@ The following properties are available:
       <code>onChange</code>
     </td>
     <td style="white-space: nowrap;">
-      <code>Function(String, Void)</code>
+      <code>Function(String, a)</code>
     </td>
     <td>
       This is called when the content changes.
@@ -80,7 +80,7 @@ The following properties are available:
       <code>loadingContent</code>
     </td>
     <td>
-      <code>Function(String, Void)</code>
+      <code>Html</code>
     </td>
     <td>
       This is shown until the all the files have loaded and editor is ready.
@@ -145,7 +145,7 @@ component Main {
     value = "def print\n  puts 'Hello World!'\nend"
   }
 
-  fun onChange (value : String) : Void {
+  fun onChange (value : String) : Promise(Never, Void) {
     next { state | value = value }
   }
 
