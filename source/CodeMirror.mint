@@ -13,7 +13,7 @@ component CodeMirror {
   ]
 
   /* Handler for the change event. */
-  property onChange : Function(String, a) = ((value : String) : Void => { void })
+  property onChange : Function(String, a) = ((value : String) : Void { void })
 
   /* The content to display until the editor is loaded. */
   property loadingContent : Html = <></>
@@ -39,24 +39,14 @@ component CodeMirror {
     }
   }
 
-  /* Saves the reference to the textarea. */
-  fun saveReference (element : Dom.Element) : Void {
-    `
-    (() => {
-      if (this.element) { return }
-      this.element = element
-    })()
-    `
-  }
-
   /* Initializes the editor for the given dom element. */
   fun initializeEditor : Void {
     `
     (() => {
-      if (!this.element) { return }
+      if (!this._element) { return }
       if (this.editor) { return }
 
-      this.editor = CodeMirror.fromTextArea(this.element, {
+      this.editor = CodeMirror.fromTextArea(this._element, {
         lineNumbers: this.lineNumbers,
         theme: this.theme,
         mode: this.mode,
@@ -105,7 +95,7 @@ component CodeMirror {
   /* Renders the component. */
   fun render : Array(Html) {
     [
-      <textarea::editor ref={saveReference}/>,
+      <textarea::editor as element/>,
       if (`this.editor`) {
         <></>
       } else {
