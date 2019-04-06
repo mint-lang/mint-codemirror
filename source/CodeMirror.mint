@@ -47,13 +47,13 @@ component CodeMirror {
       if (this.editor) { return }
 
       this.editor = CodeMirror.fromTextArea(this._element, {
-        lineNumbers: this.lineNumbers,
-        theme: this.theme,
-        mode: this.mode,
+        lineNumbers: #{lineNumbers},
+        theme: #{theme},
+        mode: #{mode},
       })
 
       this.editor.on('change', (value) => {
-        this.onChange(this.editor.getValue())
+        #{onChange(`this.editor.getValue()`)}
       })
 
       this.forceUpdate()
