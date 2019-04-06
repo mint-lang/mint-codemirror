@@ -66,9 +66,9 @@ component CodeMirror {
     `
     (() => {
       if (this.editor) {
-        if (this.props.value != null) {
-          if (this.editor.getValue() !== this.props.value) {
-            this.editor.setValue(this.props.value);
+        if (#{value} != null) {
+          if (this.editor.getValue() !== #{value}) {
+            this.editor.setValue(#{value});
           }
         }
       }
