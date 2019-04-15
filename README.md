@@ -8,7 +8,7 @@ To use the component just add this to the `dependencies` field of the projects
 ```
 "mint-codemirror": {
   "repository": "https://github.com/mint-lang/mint-codemirror",
-  "constraint": "3.0.0 <= v < 4.0.0"
+  "constraint": "5.0.0 <= v < 6.0.0"
 }
 ```
 
@@ -17,7 +17,7 @@ To get the basic component without any modes and the default theme, just add the
 
 ```
 component Main {
-  fun onChange (value : String) : Promise(Never, Void) {
+  fun onChange (value : String) : Promise(Never, String) {
     sequence {
       Debug.log(value)
     }
@@ -136,17 +136,11 @@ The following properties are available:
 This is an example for using the all of the properties:
 
 ```
-record Main.State {
-  value : String
-}
-
 component Main {
-  state : Main.State {
-    value = "def print\n  puts 'Hello World!'\nend"
-  }
+  state value : String = "def print\n  puts 'Hello World!'\nend"
 
   fun onChange (value : String) : Promise(Never, Void) {
-    next { state | value = value }
+    next { value = value }
   }
 
   fun render : Html {
@@ -157,13 +151,12 @@ component Main {
       ]
       styles=[
         "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0/codemirror.min.css",
-        "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0/theme/dracula.min.css",
+        "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0/theme/dracula.min.css"
       ]
       onChange={onChange}
-      value={state.value}
+      value={value}
       theme="dracula"
-      mode="ruby"
-      />
+      mode="ruby"/>
   }
 }
 ```
