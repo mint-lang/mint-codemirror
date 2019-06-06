@@ -43,10 +43,10 @@ component CodeMirror {
   fun initializeEditor : Void {
     `
     (() => {
-      if (!this._element) { return }
+      if (!this._element.value) { return }
       if (this.editor) { return }
 
-      this.editor = CodeMirror.fromTextArea(this._element, {
+      this.editor = CodeMirror.fromTextArea(this._element.value, {
         lineNumbers: #{lineNumbers},
         theme: #{theme},
         mode: #{mode},
