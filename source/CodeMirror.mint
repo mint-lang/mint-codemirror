@@ -13,7 +13,8 @@ component CodeMirror {
   ]
 
   /* Handler for the change event. */
-  property onChange : Function(String, a) = ((value : String) : Void { void })
+  property onChange : Function(String, Promise(Never, Void)) =
+    ((value : String) : Promise(Never, Void) { next {  } })
 
   /* The content to display until the editor is loaded. */
   property loadingContent : Html = <></>
@@ -43,10 +44,11 @@ component CodeMirror {
   fun initializeEditor : Void {
     `
     (() => {
-      if (!this._element.value) { return }
+
+      if (!this._element._0) { return }
       if (this.editor) { return }
 
-      this.editor = CodeMirror.fromTextArea(this._element.value, {
+      this.editor = CodeMirror.fromTextArea(this._element._0, {
         lineNumbers: #{lineNumbers},
         theme: #{theme},
         mode: #{mode},
@@ -77,7 +79,7 @@ component CodeMirror {
   }
 
   style editor {
-    display: {display};
+    display: #{display};
   }
 
   /*
@@ -93,14 +95,15 @@ component CodeMirror {
   }
 
   /* Renders the component. */
-  fun render : Array(Html) {
-    [
-      <textarea::editor as element/>,
+  fun render : Html {
+    <>
+      <textarea::editor as element/>
+
       if (`this.editor`) {
         <></>
       } else {
         loadingContent
       }
-    ]
+    </>
   }
 }
