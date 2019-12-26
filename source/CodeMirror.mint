@@ -22,6 +22,9 @@ component CodeMirror {
   /* Whether or not show line numbers. */
   property lineNumbers : Bool = true
 
+  /* The number of spaces userd for indentation. */
+  property tabSize : Number = 2
+
   /* When provided this value will be in the editor.s */
   property value : String = ""
 
@@ -30,6 +33,9 @@ component CodeMirror {
 
   /* The mode of the editor. */
   property mode : String = ""
+
+  /* Wether or not the content is editable. */
+  property readOnly : Bool = false
 
   /* Loads all assets when the components mounts. */
   fun componentDidMount : Promise(Never, Void) {
@@ -50,6 +56,8 @@ component CodeMirror {
 
       this.editor = CodeMirror.fromTextArea(this._element._0, {
         lineNumbers: #{lineNumbers},
+        readOnly: #{readOnly},
+        tabSize: #{tabSize},
         theme: #{theme},
         mode: #{mode},
       })
@@ -71,6 +79,10 @@ component CodeMirror {
         if (#{value} != null) {
           if (this.editor.getValue() !== #{value}) {
             this.editor.setValue(#{value});
+          }
+
+          if (this.editor.getOption("readOnly") !== #{readOnly}) {
+            this.editor.setOption("readOnly", #{readOnly})
           }
         }
       }
