@@ -1,16 +1,18 @@
 /* A component that integrates the CodeMirror editor. */
 component CodeMirror {
   /* The JavaScript files of Codemirror to load, either locally or from a CDN. */
-  property javascripts : Array(String) = [
-    "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0" \
-    "/codemirror.min.js"
-  ]
+  property javascripts : Array(String) =
+    [
+      "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0" \
+      "/codemirror.min.js"
+    ]
 
   /* The CSS files of Codemirror to load, either locally or from a CDN. */
-  property styles : Array(String) = [
-    "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0" \
-    "/codemirror.min.css"
-  ]
+  property styles : Array(String) =
+    [
+      "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0" \
+      "/codemirror.min.css"
+    ]
 
   /* Handler for the change event. */
   property onChange : Function(String, Promise(Never, Void)) =
@@ -51,10 +53,10 @@ component CodeMirror {
     `
     (() => {
 
-      if (!this._element._0) { return }
+      if (!#{element}._0) { return }
       if (this.editor) { return }
 
-      this.editor = CodeMirror.fromTextArea(this._element._0, {
+      this.editor = CodeMirror.fromTextArea(#{element}._0, {
         lineNumbers: #{lineNumbers},
         readOnly: #{readOnly},
         tabSize: #{tabSize},

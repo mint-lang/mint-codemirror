@@ -3,7 +3,9 @@
   "source-directories": [
     "source"
   ],
-  "external-javascripts": [
-    "assets/asset-loader.js"
-  ]
+  "external": {
+    "javascripts": [
+      "assets/asset-loader.js"
+    ]
+  }
 }
