@@ -1,28 +1,22 @@
 /* A component that integrates the CodeMirror editor. */
 component CodeMirror {
   /* The JavaScript files of Codemirror to load, either locally or from a CDN. */
-  property javascripts : Array(String) =
-    [
-      "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0" \
-      "/codemirror.min.js"
-    ]
+  property javascripts : Array(String) = [@asset(../assets/codemirror.min.js)]
 
   /* The CSS files of Codemirror to load, either locally or from a CDN. */
-  property styles : Array(String) =
-    [
-      "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0" \
-      "/codemirror.min.css"
-    ]
+  property styles : Array(String) = [@asset(../assets/codemirror.min.css)]
 
   /* Handler for the change event. */
-  property onChange : Function(String, Promise(Never, Void)) =
-    ((value : String) : Promise(Never, Void) { next {  } })
+  property onChange : Function(String, Promise(Never, Void)) = Promise.never1
 
   /* The content to display until the editor is loaded. */
   property loadingContent : Html = <></>
 
   /* Whether or not show line numbers. */
   property lineNumbers : Bool = true
+
+  /* Wether or not the content is editable. */
+  property readOnly : Bool = false
 
   /* The number of spaces userd for indentation. */
   property tabSize : Number = 2
@@ -35,9 +29,6 @@ component CodeMirror {
 
   /* The mode of the editor. */
   property mode : String = ""
-
-  /* Wether or not the content is editable. */
-  property readOnly : Bool = false
 
   /* Loads all assets when the components mounts. */
   fun componentDidMount : Promise(Never, Void) {
@@ -86,25 +77,22 @@ component CodeMirror {
           if (this.editor.getOption("readOnly") !== #{readOnly}) {
             this.editor.setOption("readOnly", #{readOnly})
           }
+
+          if (this.editor.getOption("theme") !== #{theme}) {
+            this.editor.setOption("theme", #{theme})
+          }
         }
       }
     })()
     `
   }
 
+  /* Styles for the editor. */
   style editor {
-    display: #{display};
-  }
-
-  /*
-  Returns the content for the `display` property,
-  to hide the textarea until it's ready.
-  */
-  get display : String {
     if (`this.editor`) {
-      ""
+      display: block;
     } else {
-      "none"
+      display: none;
     }
   }
 

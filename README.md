@@ -154,8 +154,8 @@ component Main {
         "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0/theme/dracula.min.css"
       ]
       onChange={onChange}
-      value={value}
       theme="dracula"
+      value={value}
       mode="ruby"/>
   }
 }
