@@ -15,7 +15,7 @@ component CodeMirror {
   /* Whether or not show line numbers. */
   property lineNumbers : Bool = true
 
-  /* Wether or not the content is editable. */
+  /* Whether or not the content is editable. */
   property readOnly : Bool = false
 
   /* The number of spaces userd for indentation. */

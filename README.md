@@ -47,7 +47,7 @@ The following properties are available:
     </td>
     <td>
       URLs for the JavaScript files that are needed for CodeMirror to work.
-      This can come from a CDN or from local files. This should contian the
+      This can come from a CDN or from local files. This should contain the
       base JavaScript and any other addons or modes that is required.
     </td>
   </tr>
