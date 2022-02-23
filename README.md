@@ -1,11 +1,13 @@
 # mint-codemirror
+
 This package provides a component for the [CodeMirror](https://codemirror.net) code editor to be used in Mint projects.
 
 ## Installation
+
 To use the component just add this to the `dependencies` field of the projects
 `mint.json` file.
 
-```
+```json
 "mint-codemirror": {
   "repository": "https://github.com/mint-lang/mint-codemirror",
   "constraint": "5.0.0 <= v < 6.0.0"
@@ -13,9 +15,10 @@ To use the component just add this to the `dependencies` field of the projects
 ```
 
 ## Usage
+
 To get the basic component without any modes and the default theme, just add the component to your render function:
 
-```
+```mint
 component Main {
   fun onChange (value : String) : Promise(Never, String) {
     sequence {
@@ -30,6 +33,7 @@ component Main {
 ```
 
 ## Properties
+
 The following properties are available:
 
 <table>
@@ -133,9 +137,10 @@ The following properties are available:
 </table>
 
 ## Advanced Usage
+
 This is an example for using the all of the properties:
 
-```
+```mint
 component Main {
   state value : String = "def print\n  puts 'Hello World!'\nend"
 
@@ -162,4 +167,5 @@ component Main {
 ```
 
 ## License
+
 MIT
