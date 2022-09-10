@@ -15,6 +15,9 @@ component CodeMirror {
   /* Whether or not to show the line numbers. */
   property lineNumbers : Bool = true
 
+  /* Whether or not to wrap the lines. */
+  property lineWrapping : Bool = false
+
   /* Whether or not the content is editable. */
   property readOnly : Bool = false
 
@@ -49,6 +52,7 @@ component CodeMirror {
 
       this.editor = CodeMirror.fromTextArea(#{element}._0, {
         lineNumbers: #{lineNumbers},
+        lineWrapping: #{lineWrapping},
         readOnly: #{readOnly},
         tabSize: #{tabSize},
         theme: #{theme},
