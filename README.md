@@ -98,7 +98,18 @@ The following properties are available:
       <code>Bool</code>
     </td>
     <td>
-      Whether or not show line numbers.
+      Whether or not to show the line numbers.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <code>lineWrapping</code>
+    </td>
+    <td>
+      <code>Bool</code>
+    </td>
+    <td>
+      Whether or not to wrap the lines.
     </td>
   </tr>
   <tr>
