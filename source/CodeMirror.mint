@@ -12,16 +12,19 @@ component CodeMirror {
   /* The content to display until the editor is loaded. */
   property loadingContent : Html = <></>
 
-  /* Whether or not show line numbers. */
+  /* Whether or not to show the line numbers. */
   property lineNumbers : Bool = true
+
+  /* Whether or not to wrap the lines. */
+  property lineWrapping : Bool = false
 
   /* Whether or not the content is editable. */
   property readOnly : Bool = false
 
-  /* The number of spaces userd for indentation. */
+  /* The number of spaces used for indentation. */
   property tabSize : Number = 2
 
-  /* When provided this value will be in the editor.s */
+  /* When provided this value will be in the editor. */
   property value : String = ""
 
   /* The theme of the editor. */
@@ -49,6 +52,7 @@ component CodeMirror {
 
       this.editor = CodeMirror.fromTextArea(#{element}._0, {
         lineNumbers: #{lineNumbers},
+        lineWrapping: #{lineWrapping},
         readOnly: #{readOnly},
         tabSize: #{tabSize},
         theme: #{theme},
