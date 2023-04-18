@@ -10,7 +10,7 @@ To use the component just add this to the `dependencies` field of the projects
 ```json
 "mint-codemirror": {
   "repository": "https://github.com/mint-lang/mint-codemirror",
-  "constraint": "7.0.0 <= v < 8.0.0"
+  "constraint": "8.0.0 <= v < 9.0.0"
 }
 ```
 
@@ -20,10 +20,9 @@ To get the basic component without any modes and the default theme, just add the
 
 ```mint
 component Main {
-  fun onChange (value : String) : Promise(Never, String) {
-    sequence {
-      Debug.log(value)
-    }
+  fun onChange (value : String) : Promise(Void) {
+    Debug.log(value)
+    next { }
   }
 
   fun render : Html {
@@ -144,8 +143,8 @@ This is an example for using the all of the properties:
 component Main {
   state value : String = "def print\n  puts 'Hello World!'\nend"
 
-  fun onChange (value : String) : Promise(Never, Void) {
-    next { value = value }
+  fun onChange (value : String) : Promise(Void) {
+    next { value: value }
   }
 
   fun render : Html {
