@@ -7,7 +7,7 @@ component CodeMirror {
   property styles : Array(String) = [@asset(../assets/codemirror.min.css)]
 
   /* Handler for the change event. */
-  property onChange : Function(String, Promise(Never, Void)) = Promise.never1
+  property onChange : Function(String, Promise(Void)) = Promise.never1
 
   /* The content to display until the editor is loaded. */
   property loadingContent : Html = <></>
@@ -34,12 +34,10 @@ component CodeMirror {
   property mode : String = ""
 
   /* Loads all assets when the components mounts. */
-  fun componentDidMount : Promise(Never, Void) {
-    sequence {
-      AssetLoader.loadAll(AssetLoader.loadScript, javascripts)
-      AssetLoader.loadAll(AssetLoader.loadStyle, styles)
-      initializeEditor()
-    }
+  fun componentDidMount : Promise(Void) {
+    await AssetLoader.loadAll(AssetLoader.loadScript, javascripts)
+    await AssetLoader.loadAll(AssetLoader.loadStyle, styles)
+    await initializeEditor()
   }
 
   /* Initializes the editor for the given dom element. */
