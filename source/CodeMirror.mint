@@ -91,7 +91,7 @@ component CodeMirror {
 
   /* Styles for the editor. */
   style editor {
-    if (`this.editor`) {
+    if `this.editor` {
       display: block;
     } else {
       display: none;
@@ -103,7 +103,7 @@ component CodeMirror {
     <>
       <textarea::editor as element/>
 
-      if (`this.editor`) {
+      if `this.editor` {
         <></>
       } else {
         loadingContent
