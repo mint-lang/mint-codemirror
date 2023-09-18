@@ -10,7 +10,7 @@ To use the component just add this to the `dependencies` field of the projects
 ```json
 "mint-codemirror": {
   "repository": "https://github.com/mint-lang/mint-codemirror",
-  "constraint": "8.0.0 <= v < 9.0.0"
+  "constraint": "10.0.0 <= v < 11.0.0"
 }
 ```
 
