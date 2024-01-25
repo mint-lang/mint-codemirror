@@ -33,6 +33,8 @@ component CodeMirror {
   /* The mode of the editor. */
   property mode : String = ""
 
+  const THIS = `{}`
+
   /* Loads all assets when the components mounts. */
   fun componentDidMount : Promise(Void) {
     await AssetLoader.loadAll(AssetLoader.loadScript, javascripts)
@@ -46,9 +48,9 @@ component CodeMirror {
     (() => {
 
       if (!#{element}._0) { return }
-      if (this.editor) { return }
+      if (#{THIS}.editor) { return }
 
-      this.editor = CodeMirror.fromTextArea(#{element}._0, {
+      #{THIS}.editor = CodeMirror.fromTextArea(#{element}._0, {
         lineNumbers: #{lineNumbers},
         lineWrapping: #{lineWrapping},
         readOnly: #{readOnly},
@@ -57,11 +59,11 @@ component CodeMirror {
         mode: #{mode},
       })
 
-      this.editor.on('change', (value) => {
-        #{onChange(`this.editor.getValue()`)}
+      #{THIS}.editor.on('change', (value) => {
+        #{onChange(`#{THIS}.editor.getValue()`)}
       })
 
-      this.forceUpdate()
+      #{THIS}.forceUpdate()
     })()
     `
   }
@@ -70,18 +72,18 @@ component CodeMirror {
   fun componentDidUpdate : Void {
     `
     (() => {
-      if (this.editor) {
+      if (#{THIS}.editor) {
         if (#{value} != null) {
-          if (this.editor.getValue() !== #{value}) {
-            this.editor.setValue(#{value});
+          if (#{THIS}.editor.getValue() !== #{value}) {
+            #{THIS}.editor.setValue(#{value});
           }
 
-          if (this.editor.getOption("readOnly") !== #{readOnly}) {
-            this.editor.setOption("readOnly", #{readOnly})
+          if (#{THIS}.editor.getOption("readOnly") !== #{readOnly}) {
+            #{THIS}.editor.setOption("readOnly", #{readOnly})
           }
 
-          if (this.editor.getOption("theme") !== #{theme}) {
-            this.editor.setOption("theme", #{theme})
+          if (#{THIS}.editor.getOption("theme") !== #{theme}) {
+            #{THIS}.editor.setOption("theme", #{theme})
           }
         }
       }
@@ -91,7 +93,7 @@ component CodeMirror {
 
   /* Styles for the editor. */
   style editor {
-    if `this.editor` {
+    if `#{THIS}.editor` {
       display: block;
     } else {
       display: none;
@@ -103,11 +105,28 @@ component CodeMirror {
     <>
       <textarea::editor as element/>
 
-      if `this.editor` {
+      if `#{THIS}.editor` {
         <></>
       } else {
         loadingContent
       }
     </>
+  }
+}
+
+component Main {
+  fun render {
+    <CodeMirror
+      javascripts={[@asset(../assets/codemirror.min.js)]}
+      styles={[@asset(../assets/codemirror.min.css)]}
+      onChange={Promise.never1}
+      loadingContent={<></>}
+      lineNumbers={true}
+      lineWrapping={false}
+      readOnly={false}
+      tabSize={2}
+      value={""}
+      theme={""}
+      mode={""}/>
   }
 }
