@@ -113,20 +113,3 @@ component CodeMirror {
     </>
   }
 }
-
-component Main {
-  fun render {
-    <CodeMirror
-      javascripts={[@asset(../assets/codemirror.min.js)]}
-      styles={[@asset(../assets/codemirror.min.css)]}
-      onChange={Promise.never1}
-      loadingContent={<></>}
-      lineNumbers={true}
-      lineWrapping={false}
-      readOnly={false}
-      tabSize={2}
-      value={""}
-      theme={""}
-      mode={""}/>
-  }
-}
