@@ -63,6 +63,8 @@ component CodeMirror {
       #{this}.editor.on('change', (value) => {
         #{onChange(`#{this}.editor.getValue()`)}
       })
+
+      #{this}.editor.setValue(#{value});
     })()
     `
   }
