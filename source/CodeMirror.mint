@@ -33,7 +33,7 @@ component CodeMirror {
   /* The mode of the editor. */
   property mode : String = ""
 
-  const THIS = `{}`
+  state THIS = `{}`
 
   /* Loads all assets when the components mounts. */
   fun componentDidMount : Promise(Void) {
