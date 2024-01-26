@@ -56,16 +56,13 @@ component CodeMirror {
         readOnly: #{readOnly},
         tabSize: #{tabSize},
         theme: #{theme},
+        value: #{value},
         mode: #{mode},
       })
 
       #{this}.editor.on('change', (value) => {
-        if (#{this}.editor.getValue() !== #{value}) {
-          #{onChange(`#{this}.editor.getValue()`)}
-        }
+        #{onChange(`#{this}.editor.getValue()`)}
       })
-
-      #{this}.editor.setValue(#{value});
     })()
     `
   }
