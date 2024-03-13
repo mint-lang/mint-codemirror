@@ -3,10 +3,5 @@
   "mint-version": "0.19.0 <= v < 1.0.0",
   "source-directories": [
     "source"
-  ],
-  "external": {
-    "javascripts": [
-      "assets/asset-loader.js"
-    ]
-  }
+  ]
 }
