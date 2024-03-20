@@ -60,7 +60,7 @@ component CodeMirror {
         mode: #{mode},
       })
 
-      #{this}.editor.on('change', (value) => {
+      #{this}.editor.on('change', (value, event) => {
         if (event.origin === "setValue") { return }
         #{onChange(`#{this}.editor.getValue()`)}
       })
