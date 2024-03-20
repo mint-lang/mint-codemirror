@@ -61,6 +61,7 @@ component CodeMirror {
       })
 
       #{this}.editor.on('change', (value) => {
+        if (event.origin === "setValue") { return }
         #{onChange(`#{this}.editor.getValue()`)}
       })
 
